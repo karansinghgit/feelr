@@ -71,4 +71,15 @@ router.post("/createFeelr", [auth], async (req, res) => {
   }
 });
 
+router.get("/viewAll", [auth], async (req, res) => {
+  try {
+    const data = await Feelr.find({}).sort("-createdAt");
+    return res.status(200).send(data);
+  } catch {
+    console.log("ERROR:: ", err);
+    return res.status(403).json({
+      message: "Unknown Error!",
+    });
+  }
+});
 module.exports = router;
